@@ -1,10 +1,11 @@
-import { StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, Touchable, TouchableOpacity, View, Image } from 'react-native'
 import React, {useLayoutEffect} from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import RequestsScreen from "./Requests"
 import FriendsScreen from "./Friends"
 import ProfileScreen from "./Profile"
+
 
 const Tab = createBottomTabNavigator()
 
@@ -19,6 +20,14 @@ const HomeScreen = ({navigation}) => {
   return (
     <Tab.Navigator 
       screenOptions={({route, navigation})=>({
+        headerLeft: () => (
+					<View style={styles.headerLeft}>
+						<Image 
+              source={require('../assets/placeholder.jpg')}
+              style={styles.profilePicture}
+            />
+					</View>
+				),
         headerRight:()=>(
           <TouchableOpacity>
             <FontAwesomeIcon
@@ -54,5 +63,14 @@ export default HomeScreen
 const styles = StyleSheet.create({
   searchButton: {
     marginRight: 16
+  },
+  profilePicture: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#ccc'
+  },
+  headerLeft: {
+    marginLeft: 16
   }
 })

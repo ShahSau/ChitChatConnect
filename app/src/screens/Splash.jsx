@@ -3,7 +3,6 @@ import {
   StatusBar, 
   Dimensions,
   SafeAreaView, 
-  View,
   Animated,
 } from 'react-native'
 import React, {useEffect, useLayoutEffect} from 'react'

@@ -19,5 +19,5 @@ export default Title
 const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 48,
-    marginBottom: 30
+    marginBottom: 30,
 })
