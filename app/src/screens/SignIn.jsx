@@ -11,8 +11,9 @@ import React, {useState, useLayoutEffect} from 'react'
 import Title from '../common/Title'
 import Input from '../common/Input'
 import Button from '../common/Button'
-
-
+import axios from 'axios'
+import api from '../core/api'
+import utils from '../core/utils'
 
 
 const SignInScreen = ({navigation}) => {
@@ -47,8 +48,33 @@ const SignInScreen = ({navigation}) => {
     return
   }
 
+  // if username and password are not empty, make the api call
+  api({
+    method: 'POST',
+    url: 'chat/signin/',
+    data: {
+      username: username,
+      password: password
+    }
+  })
+  .then(response => {
+    console.log('response', response.data)
+    utils.log('Sign In:', response.data)
+  }).catch(error => {
+    if (error.response) {
+      console.log( error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  })
 
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior='height' style={{flex:1}}>

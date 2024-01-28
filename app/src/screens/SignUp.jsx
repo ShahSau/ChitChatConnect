@@ -10,6 +10,8 @@ import {
 import React, { useLayoutEffect, useState} from 'react'
 import Input from '../common/Input'
 import Button from '../common/Button'
+import api from '../core/api'
+import utils from '../core/utils'
 
 
 const SignUpScreen = ({navigation}) => {
@@ -66,6 +68,34 @@ const SignUpScreen = ({navigation}) => {
     if (failUsername || failFirstName || failLastName || failPassword || failConfirmPassword) {
       return
     }
+
+    // make the api call
+    api({
+      method: 'POST',
+      url: 'chat/signup/',
+      data: {
+        username: username,
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+        confirm_password: confirmPassword
+
+      }
+    })
+    .then(response => {
+      console.log('response signup', response.data)
+    }).catch(error => {
+      if (error.response) {
+        console.log( error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    })
 
   }
 
