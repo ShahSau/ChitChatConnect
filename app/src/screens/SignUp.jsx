@@ -12,6 +12,7 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import api from '../core/api'
 import utils from '../core/utils'
+import useGlobal from '../core/global'
 
 
 const SignUpScreen = ({navigation}) => {
@@ -28,7 +29,7 @@ const SignUpScreen = ({navigation}) => {
   const [confirmPassword, setConfirmPassword] =useState('')
   const [confirmPasswordError, setConfirmPasswordError] =useState('')
 
-
+  const login = useGlobal(state => state.login)
 
   // this layout effect is called before useEffect and before the component is rendered
   useLayoutEffect(() => {
@@ -84,6 +85,7 @@ const SignUpScreen = ({navigation}) => {
     })
     .then(response => {
       console.log('response signup', response.data)
+      login(response.data)
     }).catch(error => {
       if (error.response) {
         console.log( error.response.data);

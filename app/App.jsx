@@ -7,7 +7,7 @@ import HomeScreen from './src/screens/Home';
 import MessageScreen from './src/screens/Message';
 import SearchScreen from './src/screens/Search';
 import './src/core/fontawesome';
-
+import useGlobal from './src/core/global';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -23,7 +23,10 @@ const LightTheme = {
 export default function App() { 
 
   const [initialized, setInitialized] = useState(true)
-  const [authenticated, setAuthenticated] = useState(false)
+  //const [authenticated, setAuthenticated] = useState(false)
+
+  const authenticated = useGlobal(state => state.authenticated)
+
   return (
       <NavigationContainer theme={LightTheme}>
         <StatusBar barStyle="dark-content" />

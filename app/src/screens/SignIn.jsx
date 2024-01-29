@@ -14,6 +14,7 @@ import Button from '../common/Button'
 import axios from 'axios'
 import api from '../core/api'
 import utils from '../core/utils'
+import useGlobal from '../core/global'
 
 
 const SignInScreen = ({navigation}) => {
@@ -23,6 +24,8 @@ const SignInScreen = ({navigation}) => {
   const [password, setPassword] =useState('')
   const [usernameError, setUsernameError] =useState('')
   const [passwordError, setPasswordError] =useState('')
+
+  const login = useGlobal(state => state.login)
 
   // this layout effect is called before useEffect and before the component is rendered
   useLayoutEffect(() => {
@@ -59,7 +62,7 @@ const SignInScreen = ({navigation}) => {
   })
   .then(response => {
     console.log('response', response.data)
-    utils.log('Sign In:', response.data)
+    login(response.data)
   }).catch(error => {
     if (error.response) {
       console.log( error.response.data);
