@@ -1,15 +1,19 @@
 import { StyleSheet, Text, Touchable, TouchableOpacity, View, Image } from 'react-native'
-import React, {useLayoutEffect} from 'react'
+import React, {useEffect, useLayoutEffect} from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import RequestsScreen from "./Requests"
 import FriendsScreen from "./Friends"
 import ProfileScreen from "./Profile"
+import useGlobal from '../core/global'
 
 
 const Tab = createBottomTabNavigator()
 
 const HomeScreen = ({navigation}) => {
+
+  const socktConnect = useGlobal(state => state.socketConnect)
+  const socketClose = useGlobal(state => state.socketClose)
 
   // this layout effect is called before useEffect and before the component is rendered
   useLayoutEffect(() => {
@@ -17,6 +21,14 @@ const HomeScreen = ({navigation}) => {
       headerShown: false
     })
   }, [])
+
+  useEffect(() => {
+    socktConnect()
+    return () => {
+      socketClose()
+    }
+  }, [])
+  
   return (
     <Tab.Navigator 
       screenOptions={({route, navigation})=>({

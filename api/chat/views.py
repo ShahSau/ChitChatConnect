@@ -21,7 +21,6 @@ def get_auth_for_user(user):
 class SignInView(APIView):
     # Allow any user (authenticated or not) to access this url
     permission_classes = [AllowAny]
-    print("hello")
 
     def post(self, request):
         username = request.data.get("username")

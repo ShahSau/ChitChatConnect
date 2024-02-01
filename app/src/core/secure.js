@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 
 async function set(key, object) {
 	try {
+		console.log('secure.set:', key, object)
 		//await EncryptedStorage.setItem(key, JSON.stringify(object))
 		await SecureStore.setItemAsync(key, JSON.stringify(object));
 	} catch (error) {
@@ -15,7 +16,8 @@ async function get(key) {
 	try {
 		//const data = await EncryptedStorage.getItem(key)
 		const data = await SecureStore.getItemAsync(key);
-		if (data !== undefined) {
+		
+		if (data !== undefined && data !== null) {
 			return JSON.parse(data)
 		}
 	} catch (error) {

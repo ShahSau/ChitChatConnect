@@ -36,7 +36,7 @@ function ProfileImage() {
 	const user = useGlobal(state => state.user)
 
   const pickImage = async () => {
-    
+
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -87,7 +87,7 @@ function ProfileImage() {
         }}
       >
         <FontAwesomeIcon
-          icon='pencil'
+          icon='camera'
           size={15}
           color='#d0d0d0'
         />
