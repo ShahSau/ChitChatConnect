@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, StatusBar } from 'react-native';
 import SplashScreen from './src/screens/Splash';
 import SignUpScreen from './src/screens/SignUp';
@@ -22,10 +22,14 @@ const LightTheme = {
 
 export default function App() { 
 
-  const [initialized, setInitialized] = useState(true)
-  //const [authenticated, setAuthenticated] = useState(false)
-
+  const initialized = useGlobal(state => state.initialized)
   const authenticated = useGlobal(state => state.authenticated)
+
+  const init = useGlobal(state => state.init)
+
+  useEffect(() => {
+    init()
+  }, [])
 
   return (
       <NavigationContainer theme={LightTheme}>

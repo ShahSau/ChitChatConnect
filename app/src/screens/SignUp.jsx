@@ -84,7 +84,6 @@ const SignUpScreen = ({navigation}) => {
       }
     })
     .then(response => {
-      console.log('response signup', response.data)
       login(response.data)
     }).catch(error => {
       if (error.response) {
