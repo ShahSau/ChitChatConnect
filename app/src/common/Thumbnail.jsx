@@ -1,7 +1,7 @@
 import { Image } from "react-native"
 import utils from "../core/utils"
 
-function Thumbnail({ url, size }) {
+const Thumbnail = ({ url, size }) =>{
 	return (
 		<Image 
 			source={utils.thumbnail(url)}

@@ -1,11 +1,8 @@
-//import EncryptedStorage from "react-native-encrypted-storage"
 import utils from "./utils"
 import * as SecureStore from 'expo-secure-store';
 
 async function set(key, object) {
 	try {
-		console.log('secure.set:', key, object)
-		//await EncryptedStorage.setItem(key, JSON.stringify(object))
 		await SecureStore.setItemAsync(key, JSON.stringify(object));
 	} catch (error) {
 		console.log('secure.set:', error)
@@ -14,7 +11,6 @@ async function set(key, object) {
 
 async function get(key) {
 	try {
-		//const data = await EncryptedStorage.getItem(key)
 		const data = await SecureStore.getItemAsync(key);
 		
 		if (data !== undefined && data !== null) {
@@ -27,7 +23,7 @@ async function get(key) {
 
 async function remove(key) {
 	try {
-		//await EncryptedStorage.removeItem(key)
+		
 		await SecureStore.deleteItemAsync(key);
 	} catch (error) {
 		console.log('secure.remove:', error)
@@ -36,7 +32,7 @@ async function remove(key) {
 
 async function wipe() {
 	try {
-		//await EncryptedStorage.clear()
+		
 		await SecureStore.deleteAllItemsAsync();
 	} catch (error) {
 		console.log('secure.wipe:', error)

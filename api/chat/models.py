@@ -14,4 +14,4 @@ def upload_thumbnail(instance, filename):
 
 # Create your models here.
 class User(AbstractUser):
-    thumbnail = models.ImageField(upload_to=upload_thumbnail, blank=True)
+    thumbnail = models.ImageField(upload_to=upload_thumbnail, blank=True, null=True)

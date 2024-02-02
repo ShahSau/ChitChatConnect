@@ -1,4 +1,4 @@
-
+import ProfileImage from '../assets/profile.png'
 
 const log = () =>{
 	// Much better console.log function that formats/indents
@@ -13,4 +13,13 @@ const log = () =>{
 	}
 }
 
-export default { log }
+const thumbnail =(url)=> {
+	if (!url) {
+		return ProfileImage
+	}
+	return {
+		uri: 'https://ea7d-85-76-17-110.ngrok-free.app'+ url
+	}
+}
+
+export default { log, thumbnail }

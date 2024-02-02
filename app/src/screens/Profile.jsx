@@ -4,6 +4,7 @@ import useGlobal from '../core/global'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import * as ImagePicker from 'expo-image-picker';
 import Thumbnail from '../common/Thumbnail'
+import utils from '../core/utils';
 
 const ProfileLogout = ()=> {
 	const logout = useGlobal(state => state.logout)
@@ -29,9 +30,9 @@ const ProfileLogout = ()=> {
 	)
 }
 
-function ProfileImage() {
-  const [image, setImage] = useState(null);
+const ProfileImage = ()=> {
 	const uploadThumbnail = useGlobal(state => state.uploadThumbnail)
+  
 
 	const user = useGlobal(state => state.user)
 
@@ -46,11 +47,9 @@ function ProfileImage() {
       base64: true,
     });
 
-    console.log(result);
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
-      console.log(result.assets[0].base64);
+      uploadThumbnail(result.assets[0])
     }
   };
 
@@ -61,30 +60,12 @@ function ProfileImage() {
 				pickImage()
 			}}
 		>
-      <Image 
-			source={require('../../assets/adaptive-icon.png')}
-			style={{ 
-				width: 180, 
-				height: 180, 
-				borderRadius: 180 / 2,
-				backgroundColor: '#e0e0e0' 
-			}}
-		/>
+      <Thumbnail
+        url={(Object.keys(user).includes('tokens')) ? user.user.thumbnail : user.thumbnail}
+        size={180}
+      /> 
       <View 
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          right: 0,
-          backgroundColor: '#202020',
-          width: 40,
-          height: 40,
-          borderRadius: 20,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderWidth: 3,
-          borderColor: '#fff'
-
-        }}
+        style={styles.iconview}
       >
         <FontAwesomeIcon
           icon='camera'
@@ -92,10 +73,7 @@ function ProfileImage() {
           color='#d0d0d0'
         />
       </View>
-      {/* <Thumbnail
-        url={user.user.thumbnail}
-        size={180}
-      /> */}
+      
 			
 		</TouchableOpacity>
 	)
@@ -105,7 +83,6 @@ function ProfileImage() {
 
 const ProfileScreen = () => {
   const user = useGlobal(state => state.user)
- 
 
   return (
     <View style ={{flex:1, alignItems:'center', paddingTop:100}}>
@@ -113,12 +90,12 @@ const ProfileScreen = () => {
       <Text
         style={styles.text}
       >
-        {user.user.name}
+        {(Object.keys(user).includes('tokens')) ? user.user.name : user.name}
       </Text>
       <Text
         style={styles.username}
       >
-        @{user.user.username}
+        @{(Object.keys(user).includes('tokens')) ? user.user.username : user.username}
       </Text>
 
       <ProfileLogout />
@@ -167,5 +144,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
 		color: '#d0d0d0'
   },
+  iconview:{
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#202020',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#fff'
+  }
 
 })

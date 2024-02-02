@@ -61,8 +61,6 @@ const SignInScreen = ({navigation}) => {
     }
   })
   .then(response => {
-    console.log("response",response.data)
-
     login(response.data)
   }).catch(error => {
     if (error.response) {

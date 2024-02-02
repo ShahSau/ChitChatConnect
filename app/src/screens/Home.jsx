@@ -6,6 +6,7 @@ import RequestsScreen from "./Requests"
 import FriendsScreen from "./Friends"
 import ProfileScreen from "./Profile"
 import useGlobal from '../core/global'
+import Thumbnail from '../common/Thumbnail'
 
 
 const Tab = createBottomTabNavigator()
@@ -14,6 +15,7 @@ const HomeScreen = ({navigation}) => {
 
   const socktConnect = useGlobal(state => state.socketConnect)
   const socketClose = useGlobal(state => state.socketClose)
+  const user = useGlobal(state => state.user)
 
   // this layout effect is called before useEffect and before the component is rendered
   useLayoutEffect(() => {
@@ -34,8 +36,13 @@ const HomeScreen = ({navigation}) => {
       screenOptions={({route, navigation})=>({
         headerLeft: () => (
 					<View style={styles.headerLeft}>
-						<Image 
+						{/* <Image 
               source={require('../assets/placeholder.jpg')}
+              style={styles.profilePicture}
+            /> */}
+            <Thumbnail
+              url={(Object.keys(user).includes('tokens')) ? user.user.thumbnail : user.thumbnail}
+              size={28}
               style={styles.profilePicture}
             />
 					</View>
